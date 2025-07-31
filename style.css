@@ -1,8 +1,8 @@
 /* Estilos Gerais e Fontes */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f6f9fd;
-    color: #000d30;
+    background-color: #f7f5f0; /* Cor de fundo: Tom de terra cota bem claro */
+    color: #556b2f; /* Cor do texto principal: Verde oliva escuro */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -20,7 +20,7 @@ body {
     text-align: center;
     overflow: hidden;
 }
-.tab-nav { display: flex; background-color: #f6f9fd; }
+.tab-nav { display: flex; background-color: #f7f5f0; }
 .tab-btn {
     flex-grow: 1;
     padding: 15px 10px;
@@ -29,28 +29,33 @@ body {
     cursor: pointer;
     border: none;
     background-color: transparent;
-    color: #777;
+    color: #7f8c61; /* Cor da aba inativa: Verde oliva médio */
     border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
 }
-.tab-btn:hover { color: #08004d; }
-.tab-btn.active { color: #08004d; border-bottom: 3px solid #000441; }
+.tab-btn:hover { color: #556b2f; }
+.tab-btn.active { 
+    color: #556b2f; /* Cor da aba ativa: Verde oliva escuro */
+    border-bottom: 3px solid #a0522d; /* Cor da borda ativa: Terra cota */
+}
 .tab-content-container { padding: 30px 40px; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
+
 header h1, #gifts h2 {
     font-family: 'Playfair Display', serif;
-    color: #08004d;
+    color: #556b2f; /* Cor do título principal: Verde oliva escuro */
     font-size: 2.5rem;
     margin-bottom: 10px;
 }
 #gifts h2 { font-size: 2rem; }
-header p { font-size: 1rem; color: #777; }
+header p { font-size: 1rem; color: #7f8c61; } /* Cor do parágrafo: Verde oliva médio */
+
 #searchInput {
     width: 100%;
     padding: 12px;
     font-size: 1rem;
-    border: 1px solid #d6e7ff;
+    border: 1px solid #e0ac89; /* Cor da borda: Terra cota claro */
     border-radius: 8px;
     margin-top: 20px;
     box-sizing: border-box;
@@ -63,13 +68,15 @@ header p { font-size: 1rem; color: #777; }
     cursor: pointer;
     transition: background-color 0.2s;
 }
-.result-item:hover { background-color: #d3e6ff; }
+.result-item:hover { background-color: #f7f5f0; } /* Cor de fundo no hover: Tom de terra cota claro */
+
 #rsvpSection h2 { font-family: 'Playfair Display', serif; margin-top: 20px; }
 .radio-group { margin: 20px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-#companionsContainer { margin-top: 20px; padding: 15px; background-color: #f6f9fd; border-radius: 8px; text-align: left; }
+#companionsContainer { margin-top: 20px; padding: 15px; background-color: #f7f5f0; border-radius: 8px; text-align: left; }
 #companionsContainer h3 { margin-top: 0; font-size: 1.1rem; }
+
 button[type="submit"] {
-    background-color: #0c004e;
+    background-color: #a0522d; /* Cor do botão principal: Terra cota */
     color: white;
     border: none;
     padding: 15px 30px;
@@ -80,15 +87,18 @@ button[type="submit"] {
     transition: background-color 0.3s;
     margin-top: 20px;
 }
-button[type="submit"]:hover { background-color: #070044; }
+button[type="submit"]:hover { background-color: #8c4626; } /* Terra cota mais escuro */
+
 #message { margin-top: 20px; font-weight: bold; padding: 15px; border-radius: 8px; }
-.message-success { background-color: #e4f8e9; color: #277c42; }
-.message-error { background-color: #fde2e2; color: #a73434; }
-.message-loading { background-color: #00104be0; color: #fafafa; }
+.message-success { background-color: #e8f5e9; color: #388e3c; } /* Mantido verde para sucesso */
+.message-error { background-color: #fde2e2; color: #a73434; } /* Mantido vermelho para erro */
+.message-loading { background-color: #7f8c61; color: #fafafa; } /* Fundo de carregamento: Verde oliva médio */
+
 footer { margin-top: 30px; font-style: italic; color: #999; }
 .companion-item { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-.companion-item .lastname-input { padding: 8px 10px; border: 1px solid #d6e7ff; border-radius: 8px; font-size: 0.9rem; flex-grow: 1; }
+.companion-item .lastname-input { padding: 8px 10px; border: 1px solid #e0ac89; border-radius: 8px; font-size: 0.9rem; flex-grow: 1; }
 .companion-item label { display: flex; align-items: center; gap: 8px; margin-bottom: 0; }
+
 .gift-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -96,7 +106,7 @@ footer { margin-top: 30px; font-style: italic; color: #999; }
     margin-top: 20px;
 }
 .gift-item {
-    border: 1px solid #d6e7ff;
+    border: 1px solid #e0ac89; /* Cor da borda do item: Terra cota claro */
     border-radius: 12px;
     padding: 15px;
     text-align: center;
@@ -120,17 +130,17 @@ footer { margin-top: 30px; font-style: italic; color: #999; }
 .gift-item h4 {
     font-family: 'Playfair Display', serif;
     font-size: 1.25rem;
-    color: #08004d;
+    color: #556b2f; /* Cor do título do presente: Verde oliva escuro */
     margin: 0 0 5px 0;
 }
 .gift-item .gift-price {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #000d30;
+    color: #556b2f;
     margin: 0 0 15px 0;
 }
 .gift-item .gift-btn {
-    background-color: #0c004e;
+    background-color: #556b2f; /* Cor do botão de presentear: Verde oliva escuro */
     color: white;
     border: none;
     padding: 15px 30px;
@@ -144,15 +154,14 @@ footer { margin-top: 30px; font-style: italic; color: #999; }
     box-sizing: border-box; 
     margin-top: auto;
 }
-.gift-item .gift-btn:hover { background-color: #070044; }
+.gift-item .gift-btn:hover { background-color: #4a5d28; } /* Verde oliva mais escuro */
 
-#post-rsvp-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #d6e7ff; }
+#post-rsvp-actions { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0ac89; }
 .post-rsvp-btn { padding: 15px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; color: white; transition: transform 0.2s ease; text-align: center; }
 .post-rsvp-btn:hover { transform: scale(1.03); }
-.post-rsvp-btn.calendar { background-color: #b8d4f3; }
-.post-rsvp-btn.whatsapp { background-color: #86cfa1; }
-/* ▼▼▼ NOVO ESTILO ADICIONADO ▼▼▼ */
-.post-rsvp-btn.gifts { background-color: #e8c57b; }
+.post-rsvp-btn.calendar { background-color: #7f8c61; } /* Botão calendário: Verde oliva médio */
+.post-rsvp-btn.whatsapp { background-color: #9ccc65; } /* Botão WhatsApp: Verde claro harmonioso */
+.post-rsvp-btn.gifts { background-color: #a0522d; } /* Botão presentes: Terra cota */
 
 .btn-loader.hidden { display: none; }
 .btn-loader {
@@ -165,7 +174,3 @@ footer { margin-top: 30px; font-style: italic; color: #999; }
     animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-/* Estilo para o novo botão da Lista de Presentes */
-.post-rsvp-btn.gifts {
-    background-color: #e8c57b; /* Cor dourada/amarela para diferenciar */
-}
