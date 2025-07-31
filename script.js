@@ -211,12 +211,28 @@ function switchTab(tabId) {
     if (activeContent) activeContent.classList.add('active');
 }
 
+// CÓDIGO ATUALIZADO
 document.addEventListener('DOMContentLoaded', () => {
+    // Evento para o clique nas abas
     document.querySelector('.tab-nav').addEventListener('click', (e) => {
         const clickedButton = e.target.closest('.tab-btn');
         if (!clickedButton) return;
         switchTab(clickedButton.dataset.tab);
     });
+
+    // ▼▼▼ NOVO CÓDIGO ADICIONADO ABAIXO ▼▼▼
+
+    // Verifica se a URL tem um # no final (ex: #gifts)
+    const hash = window.location.hash;
+    if (hash) {
+        // Remove o '#' para pegar o nome da aba (ex: "gifts")
+        const tabId = hash.substring(1);
+        // Chama a função para trocar para a aba correta
+        switchTab(tabId);
+    }
+
+    // ▲▲▲ FIM DO NOVO CÓDIGO ▲▲▲
+
     fetchGuests();
 });
 
@@ -224,12 +240,4 @@ searchInput.addEventListener('input', () => displayResults(searchInput.value));
 rsvpSection.addEventListener('submit', handleRsvpSubmit);
 attendanceRadios.forEach(radio => radio.addEventListener('change', handleAttendanceChange));
 
-// CÓDIGO ATUAL
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.tab-nav').addEventListener('click', (e) => {
-        const clickedButton = e.target.closest('.tab-btn');
-        if (!clickedButton) return;
-        switchTab(clickedButton.dataset.tab);
-    });
-    fetchGuests();
-});
+
