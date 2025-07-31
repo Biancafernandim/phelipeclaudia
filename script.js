@@ -223,3 +223,13 @@ document.addEventListener('DOMContentLoaded', () => {
 searchInput.addEventListener('input', () => displayResults(searchInput.value));
 rsvpSection.addEventListener('submit', handleRsvpSubmit);
 attendanceRadios.forEach(radio => radio.addEventListener('change', handleAttendanceChange));
+
+// CÓDIGO ATUAL
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.tab-nav').addEventListener('click', (e) => {
+        const clickedButton = e.target.closest('.tab-btn');
+        if (!clickedButton) return;
+        switchTab(clickedButton.dataset.tab);
+    });
+    fetchGuests();
+});
