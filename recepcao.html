@@ -173,24 +173,23 @@
         // VERSÃO CORRIGIDA DA FUNÇÃO DE BUSCA
         function findGuestById(csv, id) {
             const rows = csv.split('\n');
-            const headers = rows.shift().split(',').map(h => h.trim().toLowerCase()); // Garante que o cabeçalho seja minúsculo e sem espaços
+            const headers = rows.shift().split(',').map(h => h.trim().toLowerCase());
             const idColumnIndex = headers.indexOf('id');
 
-            if (idColumnIndex === -1) { // Se não encontrar a coluna 'id'
-                console.error("Coluna 'id' não encontrada na planilha.");
+            if (idColumnIndex === -1) {
+                console.error("Coluna 'id' não foi encontrada na planilha.");
                 return null;
             }
             
             for (const row of rows) {
                 if (!row || row.trim() === '') continue;
 
-                // Remove o caractere de retorno de carro (\r) que às vezes o CSV inclui
                 const cleanedRow = row.replace(/\r/g, '');
                 const data = cleanedRow.split(',');
 
-                if (data.length < headers.length) continue; // Pula linhas malformadas
+                if (data.length < headers.length) continue;
 
-                if (data[idColumnIndex] && data[idColumnindex].trim() === id) {
+                if (data[idColumnIndex] && data[idColumnIndex].trim() === id) {
                     const guestObject = {};
                     headers.forEach((header, index) => {
                         guestObject[header] = data[index] ? data[index].trim() : '';
@@ -198,7 +197,7 @@
                     return guestObject;
                 }
             }
-            return null; // Retorna nulo se não encontrar o convidado
+            return null;
         }
 
         function showGuestInfo() {
