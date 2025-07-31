@@ -1,4 +1,3 @@
-
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwq06_NVhsjAEgUSNIM6RJCnLvuoF_hKOZCPfIz1Ip6j5BEcHgT8cNuQ6FX9BVLg-yn/exec";
 
 // --- ELEMENTOS DO DOM ---
@@ -105,7 +104,6 @@ function handleAttendanceChange() {
     }
 }
 
-// Substitua APENAS esta função no seu script.js
 async function handleRsvpSubmit(event) {
     event.preventDefault();
 
@@ -151,8 +149,10 @@ async function handleRsvpSubmit(event) {
 
                 const calendarButton = document.getElementById('addToCalendarBtn');
                 const whatsappButton = document.getElementById('whatsappBtn');
+                // ▼▼▼ NOVO CÓDIGO ▼▼▼
+                const giftsButton = document.getElementById('goToGiftsBtn');
 
-                if (calendarButton && whatsappButton) {
+                if (calendarButton && whatsappButton && giftsButton) {
                     
                     // --- Gera o link do Calendário com seus dados ---
                     const eventTitle = encodeURIComponent("Casamento Phelipe e Claudia");
@@ -175,6 +175,13 @@ async function handleRsvpSubmit(event) {
                     
                     const whatsappMessage = encodeURIComponent(messageBody);
                     whatsappButton.href = `https://wa.me/${couplePhoneNumber}?text=${whatsappMessage}`;
+
+                    // ▼▼▼ NOVO CÓDIGO ▼▼▼
+                    // Adiciona o evento de clique para o botão de presentes
+                    giftsButton.addEventListener('click', (e) => {
+                        e.preventDefault(); // Impede que o link recarregue a página
+                        switchTab('gifts'); // Chama a função que troca para a aba de presentes
+                    });
                     
                     // Mostra os botões de ação na tela
                     document.getElementById('post-rsvp-actions').classList.remove('hidden');
