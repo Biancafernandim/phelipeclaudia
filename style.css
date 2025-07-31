@@ -165,3 +165,7 @@ footer { margin-top: 30px; font-style: italic; color: #999; }
     animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+/* Estilo para o novo botão da Lista de Presentes */
+.post-rsvp-btn.gifts {
+    background-color: #e8c57b; /* Cor dourada/amarela para diferenciar */
+}
