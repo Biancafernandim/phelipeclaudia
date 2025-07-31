@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo(a) ao Nosso Casamento!</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f6f9fd;
+            color: #000d30;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); 
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            border-top: 5px solid #000441;
+        }
+        .photo-container {
+            margin-bottom: 25px;
+        }
+        #guestPhoto {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,.15);
+            display: none;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #08004d;
+            margin-top: 0;
+            font-size: 2.2em;
+            line-height: 1.2;
+        }
+        .info-section {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .table-intro {
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        #tableNumber {
+            font-size: 2.5em;
+            font-weight: 700; 
+            color: #08004d;
+            margin: 10px 0;
+            padding: 10px 20px;
+            border: 2px dashed #d6e7ff;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        #companionSection {
+            display: none;
+            background-color: #f6f9fd;
+            border-left: 4px solid #000441;
+            padding: 15px;
+            text-align: left;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        #companionSection p {
+            margin: 0;
+            font-size: 1em;
+        }
+        #companionNames {
+            font-weight: bold;
+        }
+        #loading, #error {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div id="guestInfo">
+            <div class="photo-container"><img id="guestPhoto" src="" alt="Foto do Convidado"></div>
+            <h1>Bem-vindo(a), <br><span id="fullName">...</span>!</h1>
+            <div class="info-section">
+                <p class="table-intro">Aguardamos você na mesa</p>
+                <div id="tableNumber">...</div>
+            </div>
+            <div id="companionSection"><p>Com:<br><span id="companionNames"></span></p></div>
+        </div>
+        <div id="loading"><h1>Buscando seus dados...</h1></div>
+        <div id="error">
+            <h1>Ops!</h1>
+            <p>Não conseguimos encontrar os dados deste convidado. Por favor, verifique o QR Code ou contate o cerimonial.</p>
+        </div>
+    </div>
+
+    <script>
+        const googleSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT4mbdptG8_UwQ8gyhpESUfgkEaFp8DbhHGnS9mMiV4UGp06MD4bdvb5czle3JP0wXBguN0tbgUQp71/pub?gid=0&single=true&output=csv';
+
+        const guestInfoDiv = document.getElementById('guestInfo');
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('error');
+        const fullNameSpan = document.getElementById('fullName');
+        const tableNumberDiv = document.getElementById('tableNumber');
+        const companionSectionDiv = document.getElementById('companionSection');
+        const companionNamesSpan = document.getElementById('companionNames');
+        const guestPhotoEl = document.getElementById('guestPhoto');
+
+        window.onload = async () => {
+            guestInfoDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+
+            const params = new URLSearchParams(window.location.search);
+            const guestId = params.get('id');
+
+            if (!guestId) {
+                showError();
+                return;
+            }
+
+            try {
+                const response = await fetch(googleSheetURL);
+                const csvData = await response.text();
+                const guest = findGuestById(csvData, guestId);
+
+                if (guest) {
+                    fullNameSpan.textContent = guest.nome_completo;
+                    tableNumberDiv.textContent = guest.mesa;
+
+                    if (guest.acompanhantes && guest.acompanhantes.trim() !== '') {
+                        const formattedCompanions = guest.acompanhantes.replace(/;/g, '<br>');
+                        companionNamesSpan.innerHTML = formattedCompanions;
+                        companionSectionDiv.style.display = 'block';
+                    }
+
+                    if (guest.link_foto && guest.link_foto.trim() !== '') {
+                        guestPhotoEl.src = guest.link_foto;
+                        guestPhotoEl.style.display = 'inline-block';
+                    }
+                    
+                    showGuestInfo();
+                } else {
+                    showError();
+                }
+            } catch (e) {
+                console.error('Erro ao buscar dados:', e);
+                showError();
+            }
+        };
+
+        function findGuestById(csv, id) {
+            const rows = csv.split('\n');
+            const headers = rows[0].split(',').map(h => h.trim());
+            const idColumnIndex = headers.indexOf('id');
+            for (let i = 1; i < rows.length; i++) {
+                if (!rows[i] || rows[i].trim() === '') { continue; }
+                const data = rows[i].split(',');
+                if (!data[idColumnIndex] || data[idColumnIndex].trim() === '') { continue; }
+                if (data[idColumnIndex].trim() === id) {
+                    let guestObject = {};
+                    for (let j = 0; j < headers.length; j++) {
+                        const cellValue = data[j];
+                        guestObject[headers[j]] = cellValue ? cellValue.trim() : '';
+                    }
+                    return guestObject;
+                }
+            }
+            return null;
+        }
+
+        function showGuestInfo() {
+            loadingDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+            guestInfoDiv.style.display = 'block';
+        }
+
+        function showError() {
+            loadingDiv.style.display = 'none';
+            guestInfoDiv.style.display = 'none';
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
