@@ -174,3 +174,52 @@ footer { margin-top: 30px; font-style: italic; color: #999; }
     animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+/* --- ESTILOS PARA A SEÇÃO PIX (TEMA VERDE OLIVA / TERRA COTA) --- */
+
+.pix-section {
+    background-color: #f7f5f0; /* Fundo de tom terra cota claro, igual ao das abas */
+    border: 1px dashed #e0ac89; /* Borda terra cota clara, pontilhada */
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 30px; /* Espaço antes da lista de presentes */
+    text-align: center;
+}
+
+.pix-section p {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    color: #7f8c61; /* Verde oliva médio, para texto secundário */
+}
+
+.pix-key-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Espaço entre a chave e o botão */
+}
+
+#pixKey {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #556b2f; /* Verde oliva escuro, para destaque */
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e0ac89; /* Borda terra cota clara */
+}
+
+#copyPixBtn {
+    background-color: #556b2f; /* Verde oliva escuro, para o botão */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#copyPixBtn:hover {
+    background-color: #4a5d28; /* Verde oliva mais escuro para o hover */
+}
